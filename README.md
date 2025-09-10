@@ -1,160 +1,180 @@
-# 🔐 Django Auth API (JWT + Swagger)
+---
 
-A simple authentication system built with Django REST Framework, JWT (SimpleJWT), and Swagger (drf-yasg).
-This project includes Register, Login (with username/email), Profile API and supports Bearer Token Authentication.
+# 🛒 Django E-Commerce Store
+
+A professional **Django + DRF based E-Commerce Store** with fully functional REST APIs, Swagger documentation, and a user-friendly frontend. This project is designed as an **intermediate level test project** to assess Django skills including models, serializers, views, authentication, and API documentation.
 
 ---
 
 ## 🚀 Features
 
-* User Registration (username, email, phone number, password)
-* User Login with username or email
-* JWT Authentication (Access & Refresh Tokens)
-* Login response includes full user details
-* Profile API (protected with Bearer token)
-* Swagger UI for API documentation
+### 🔑 Authentication & Users
+
+* User registration & login with JWT authentication.
+* Profile management (view & update profile).
+* Admin & normal user roles.
+
+### 🏬 Store (Products)
+
+* Product listing with pagination, search & filters.
+* Product details endpoint.
+* Stock management (auto reduce on order).
+
+### 🛒 Cart
+
+* Add/remove products to cart.
+* View current cart with items & total.
+* Auto-clear cart after successful order.
+
+### 📦 Orders
+
+* Place order from cart.
+* Track order status (**PENDING → PROCESSING → SHIPPED → DELIVERED → CANCELED**).
+* Users can view their own orders.
+* Admins can manage all orders (update status, cancel, delete).
+
+### ⚡ Admin APIs
+
+* Full CRUD on products.
+* Manage orders (update status, view all orders).
+
+### 📖 API Docs
+
+* **Swagger UI** integration for interactive API documentation.
+* Auth header support in Swagger.
+
+### 🎨 Frontend
+
+* Responsive & user-friendly interface (React or Bootstrap/Tailwind suggested).
+* Product catalog with images.
+* Add to cart & checkout flow.
+* Login/Register UI.
 
 ---
 
-## 📦 Installation & Setup
+## 🛠️ Tech Stack
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/kanik-snippet/ecommerce_webapp.git
-cd ecommerce_webapp
-```
-
-### 2. Create Virtual Environment
-
-**Windows**
-
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
-**Linux / Mac**
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 3. Install Dependencies
-
-```bash
-pip install django djangorestframework djangorestframework-simplejwt drf-yasg pillow
-```
-
-### 4. Apply Migrations
-
-```bash
-python manage.py makemigrations core store
-python manage.py migrate
-```
-
-### 5. Create Superuser (Admin)
-
-```bash
-python manage.py createsuperuser
-```
-
-### 6. Run the Development Server
-
-```bash
-python manage.py runserver
-```
-
-Server: [http://127.0.0.1:8000](http://127.0.0.1:8000)
-
----
-
-## 📑 API Documentation
-
-* Swagger UI → [http://127.0.0.1:8000/swagger/](http://127.0.0.1:8000/swagger/)
-* Redoc → [http://127.0.0.1:8000/redoc/](http://127.0.0.1:8000/redoc/)
-
----
-
-## 🔑 Authentication
-
-Protected endpoints require Bearer Token.
-
-Steps:
-
-1. Login and copy the Access Token
-2. In Swagger, click Authorize
-3. Enter:
-
-   ```
-   Bearer <your-access-token>
-   ```
-
-Example:
-
-```
-Bearer eyJhbGciOiJIUzI1NiIsInR5cCI...
-```
-
----
-
-## ✅ Example Login Response
-
-```json
-{
-  "refresh": "eyJhbGciOiJIUzI1...",
-  "access": "eyJhbGciOiJIUzI1...",
-  "user": {
-    "id": 1,
-    "username": "kanik",
-    "email": "kanik@example.com",
-    "phone_number": "9876543210",
-    "name": "Kanik Gupta",
-    "is_superuser": true,
-    "is_staff": true,
-    "is_active": true
-  }
-}
-```
+* **Backend**: Django, Django REST Framework
+* **Authentication**: JWT (SimpleJWT)
+* **Database**: PostgreSQL (or MySQL/SQLite in dev)
+* **API Docs**: drf-yasg (Swagger)
+* **Frontend**: React.js with Bootstrap/Tailwind (Pending)
 
 ---
 
 ## 📂 Project Structure
 
 ```
-project-root/
-│── users/
-│   ├── models.py
-│   ├── serializers.py
-│   ├── views.py
-│   ├── urls.py
-│
-│── store/
-│   ├── models.py
-│   ├── serializers.py
-│   ├── views.py
-│   ├── urls.py
-│
-│── config/
-│   ├── settings.py
-│   ├── urls.py
-│
-│── manage.py
+EcommerceStore/
+├── users/          # Authentication & user profile
+├── store/          # Products, Cart, Orders
+├── EcommerceStore/ # Project settings & urls
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## 🛠 Tech Stack
+## 📌 Models Overview
 
-* Python 3.x
-* Django
-* Django REST Framework
-* SimpleJWT (for authentication)
-* drf-yasg (Swagger API docs)
+* **User** → custom user with roles.
+* **Product** → name, description, price, stock, category.
+* **Cart** → user cart with multiple items.
+* **CartItem** → product, quantity, price.
+* **Order** → user, shipping address, phone, total price, status.
+* **OrderItem** → product, quantity, price, linked to Order.
+
+---
+
+## 🔗 API Endpoints (Sample)
+
+### Auth
+
+* `POST /api/auth/register/` → Register new user
+* `POST /api/auth/login/` → Get JWT token
+
+### Products
+
+* `GET /api/store/products/` → List products
+* `POST /api/store/products/` → Create product (Admin)
+
+### Cart
+
+* `GET /api/store/cart/` → View cart
+* `POST /api/store/cart/add/` → Add product to cart
+
+### Orders
+
+* `GET /api/store/orders/` → List user orders
+* `POST /api/store/orders/` → Place new order
+* `GET /api/store/admin/orders/` → List all orders (Admin)
+* `PATCH /api/store/admin/orders/{id}/` → Update order status
+
+---
+
+## 🔧 Setup & Installation
+
+1. Clone repo:
+
+   ```bash
+   git clone https://github.com/yourusername/ecommerce-store.git
+   cd ecommerce-store
+   ```
+
+2. Create virtual environment & install dependencies:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+
+3. Run migrations:
+
+   ```bash
+   python manage.py migrate
+   ```
+
+4. Create superuser:
+
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+5. Start server:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+6. Access API Docs:
+
+   * Swagger UI → [http://localhost:8000/swagger/](http://localhost:8000/swagger/)
+
+---
+
+## 🧪 Testing Checklist
+
+✅ JWT authentication works (login & register)
+✅ Products can be added, listed, updated, deleted
+✅ Cart operations (add, view, clear) work correctly
+✅ Orders create correctly & deduct stock
+✅ Admin can update order status
+✅ Swagger docs show all endpoints
+
+---
+
+## 📌 Next Steps (Optional Enhancements)
+
+* Wishlist & product reviews.
+* Payment gateway integration (Stripe/PayPal).
+* Deployment on Docker & cloud hosting.
 
 ---
 
 ## 👨‍💻 Author
 
-Developed by Kanik 🚀
+Designed by Kanik. 🚀
+
+---
+
