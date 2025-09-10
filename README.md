@@ -21,8 +21,8 @@ This project includes Register, Login (with username/email), Profile API and sup
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
-cd <project-folder>
+git clone https://github.com/kanik-snippet/ecommerce_webapp.git
+cd ecommerce_webapp
 ```
 
 ### 2. Create Virtual Environment
@@ -44,13 +44,13 @@ source venv/bin/activate
 ### 3. Install Dependencies
 
 ```bash
-pip install django djangorestframework djangorestframework-simplejwt drf-yasg
+pip install django djangorestframework djangorestframework-simplejwt drf-yasg pillow
 ```
 
 ### 4. Apply Migrations
 
 ```bash
-python manage.py makemigrations
+python manage.py makemigrations core store
 python manage.py migrate
 ```
 
@@ -130,7 +130,13 @@ project-root/
 │   ├── views.py
 │   ├── urls.py
 │
-│── project/
+│── store/
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+│   ├── urls.py
+│
+│── config/
 │   ├── settings.py
 │   ├── urls.py
 │
